@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Average Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Add the following CSS for transparency */
+        body {
+            background-color: #f2f2f2; /* Set a background color for the body */
+        }
+
+        .conversion-form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            margin: 200px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(100px); /* Add a blur effect to the background */
+        }
+
+    </style>
+
+</head>
+
+<body>
+     <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Conversion
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="CtoF.html">Celsius to Fahrenheit</a>
+                <a href="FtoC.html">Fahrenheit to Celsius</a>
+                <a href="FtoM.html">Feet to Meters</a>
+                <a href="MtoF.html">Meters to Feet</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Income Tax
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="incometaxcalcu.html">Income Tax Calculator</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Printing Natural Numbers
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="printwf.html">Printing with Factorial</a>
+                <a href="printws.html">Printing with Sum</a>
+                <a href="printwa.html">Printing with Average</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Payroll
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="samplepayroll.html">Sample Payroll</a>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation Bar -->
+
+    <!-- Average Calculator Form -->
+    <div class="conversion-form">
+        <h1>Average Calculator</h1>
+        <form>
+            <label for="number">Enter an integer value:</label>
+            <input type="number" id="number" name="number" required>
+            <input type="button" value="Calculate Average" onclick="calculateAverage()">
+        </form>
+        <p id="result"></p>
+    </div>
+
+    <!-- JS for Average Calculation -->
+    <script>
+        function calculateAverage() {
+            var n = parseInt(document.getElementById('number').value);
+            var sum = 0;
+
+            for (var i = 1; i <= n; i++) {
+                sum += i;
+            }
+
+            var average = sum / n;
+
+            document.getElementById("result").innerHTML = `The average of the first ${n} numbers is: ${average.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+
+<style>
+    body {
+        background-image: url(https://i.pinimg.com/originals/41/7b/c1/417bc196f085b7956f529c86387ba435.jpg);
+    }
+</style>
+
+</html>
