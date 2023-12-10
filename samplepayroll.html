@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Payroll Program</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Add the following CSS for transparency */
+        body {
+            background-color: #f2f2f2; /* Set a background color for the body */
+        }
+
+        .conversion-form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            margin: 200px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(100px); /* Add a blur effect to the background */
+        }
+
+        #payrollTable,
+        #resultsTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #payrollTable th,
+        #payrollTable td,
+        #resultsTable th,
+        #resultsTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #payrollTable th,
+        #resultsTable th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+
+<body>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Conversion
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="CtoF.html">Celsius to Fahrenheit</a>
+                <a href="FtoC.html">Fahrenheit to Celsius</a>
+                <a href="FtoM.html">Feet to Meters</a>
+                <a href="MtoF.html">Meters to Feet</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Income Tax
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="incometaxcalcu.html">Income Tax Calculator</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Printing Natural Numbers
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="printwf.html">Printing with Factorial</a>
+                <a href="printws.html">Printing with Sum</a>
+                <a href="printwa.html">Printing with Average</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Payroll
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="samplepayroll.html">Sample Payroll</a>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation Bar -->
+
+
+    <!-- payroll program form -->
+    <div class="conversion-form">
+        <h1>Payroll Program</h1>
+        <form id="payrollForm">
+            <!-- Input fields for employee Name, days worked, daily Rate, deduction amount -->
+            <label for="employeeName">Employee Name:</label>
+            <input type="text" id="employeeName" name="employeeName" required>
+
+            <label for="daysWorked">Days Worked:</label>
+            <input type="number" id="daysWorked" name="daysWorked" required>
+
+            <label for="dailyRate">Daily Rate:</label>
+            <input type="number" id="dailyRate" name="dailyRate" required>
+
+            <label for="deductionAmount">Deduction Amount:</label>
+            <input type="number" id="deductionAmount" name="deductionAmount" required>
+
+            <input type="button" value="Add Employee" onclick="addEmployee()">
+        </form>
+
+        <!-- Display table for payroll list -->
+        <table id="payrollTable">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Employee Name</th>
+                    <th>Days Worked</th>
+                    <th>Daily Rate</th>
+                    <th>Gross Pay</th>
+                    <th>Deduction Amount</th>
+                    <th>Net Pay</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows for payroll data will be dynamically added/removed -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- JS FOR PAYROLL -->
+    <script>
+        var payrollList = [];
+
+        function addEmployee() {
+            var employeeName = document.getElementById('employeeName').value;
+            var daysWorked = parseInt(document.getElementById('daysWorked').value);
+            var dailyRate = parseFloat(document.getElementById('dailyRate').value);
+            var deductionAmount = parseFloat(document.getElementById('deductionAmount').value);
+
+            var grossPay = daysWorked * dailyRate;
+            var netPay = grossPay - deductionAmount;
+
+            var payrollEntry = {
+                employeeName: employeeName,
+                daysWorked: daysWorked,
+                dailyRate: dailyRate,
+                grossPay: grossPay,
+                deductionAmount: deductionAmount,
+                netPay: netPay
+            };
+
+            payrollList.push(payrollEntry);
+
+            updateTable();
+        }
+
+        function updateTable() {
+            var tableBody = document.querySelector('#payrollTable tbody');
+            tableBody.innerHTML = '';
+
+            for (var i = 0; i < payrollList.length; i++) {
+                var row = tableBody.insertRow();
+                var cellNumber = row.insertCell(0);
+                var cellEmployeeName = row.insertCell(1);
+                var cellDaysWorked = row.insertCell(2);
+                var cellDailyRate = row.insertCell(3);
+                var cellGrossPay = row.insertCell(4);
+                var cellDeductionAmount = row.insertCell(5);
+                var cellNetPay = row.insertCell(6);
+                var cellAction = row.insertCell(7);
+
+                cellNumber.innerHTML = i + 1;
+                cellEmployeeName.innerHTML = payrollList[i].employeeName;
+                cellDaysWorked.innerHTML = payrollList[i].daysWorked;
+                cellDailyRate.innerHTML = payrollList[i].dailyRate;
+                cellGrossPay.innerHTML = payrollList[i].grossPay.toFixed(2);
+                cellDeductionAmount.innerHTML = payrollList[i].deductionAmount.toFixed(2);
+                cellNetPay.innerHTML = payrollList[i].netPay.toFixed(2);
+                cellAction.innerHTML = '<button onclick="deleteEmployee(' + i + ')">Delete</button>';
+            }
+        }
+
+        function deleteEmployee(index) {
+            payrollList.splice(index, 1);
+            updateTable();
+        }
+    </script>
+
+</body>
+
+<style>
+    body {
+        background-image: url(https://i.pinimg.com/originals/41/7b/c1/417bc196f085b7956f529c86387ba435.jpg);
+    }
+</style>
+
+</html>
